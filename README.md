@@ -1,4 +1,5 @@
 HEAD
+HEAD
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -19,3 +20,6 @@ If you are developing a production application, we recommend using TypeScript wi
 # noteX
 this is my project , my project is very beautifull project , It's still fluffy and I want to add other things to it to make it fuller.
 7c9a36e0a6972daec881ec0459d62750894cee08
+
+# noteX-main
+a1d63da036f07124f41ca376fefadb698642be65
