@@ -1,5 +1,6 @@
 HEAD
 HEAD
+HEAD
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -23,3 +24,6 @@ this is my project , my project is very beautifull project , It's still fluffy a
 
 # noteX-main
 a1d63da036f07124f41ca376fefadb698642be65
+
+# noteX-main
+482080a85f3d2953d6f68b4a7ca3459205a1f731
