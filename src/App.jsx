@@ -35,13 +35,41 @@ function App() {
       isPinned: false,
     },
   ]);
+
   let [selectNotes, setSelectNotes] = useState([0]);
+
+  let saveNote = (savedNote) => {
+    let newNotes = notes.map((singleNote) =>
+      singleNote.id === savedNote.id ? savedNote : singleNote,
+    );
+    setNotes(() => newNotes);
+  };
+
+  let noteDelete = (id) => {
+    let newNote = notes.filter((singleNote) => singleNote.id !== id);
+    setNotes(newNote);
+    if (selectNotes?.id === id) {
+      if (newNote.length > 0) {
+        setSelectNotes(newNote[0]);
+      }
+    }
+  };
+
   return (
     <div className="w-[100vw] bg-gray-100 flex justify-center">
       <div className="flex w-full h-screen overflow-hidden">
         <Sidebar />
-        <NoteBook notes={notes} onSelect={setSelectNotes} selectNotes={selectNotes} />
-        <ViewNotes note={selectNotes} key={selectNotes?.id}/>
+        <NoteBook
+          notes={notes}
+          onSelect={setSelectNotes}
+          selectNotes={selectNotes}
+        />
+        <ViewNotes
+          note={selectNotes}
+          key={selectNotes?.id}
+          onSave={saveNote}
+          onDelete={noteDelete}
+        />
       </div>
     </div>
   );
