@@ -36,24 +36,47 @@ function App() {
     },
   ]);
 
-  let [selectNotes, setSelectNotes] = useState([0]);
+  let [selectNotes, setSelectNotes] = useState(null);
 
   let saveNote = (savedNote) => {
-    let newNotes = notes.map((singleNote) =>
+    let newNote = notes.map((singleNote) =>
       singleNote.id === savedNote.id ? savedNote : singleNote,
     );
-    setNotes(() => newNotes);
+    setNotes(() => newNote);
   };
 
-  let noteDelete = (id) => {
-    let newNote = notes.filter((singleNote) => singleNote.id !== id);
-    setNotes(newNote);
-    if (selectNotes?.id === id) {
-      if (newNote.length > 0) {
-        setSelectNotes(newNote[0]);
-      }
+  let deleteNoteHandeler = (id) => {
+    let newNotes = notes.filter((note) => note.id !== id);
+    setNotes(newNotes);
+    if (selectNotes === id) {
+      setSelectNotes(newNotes[0]?.id || null);
     }
   };
+
+  let selectNote = notes.find((note) => note.id === selectNotes);
+
+  let handleSelect = (note) => {
+    setSelectNotes(note.id);
+  }
+
+  let createNoteHandeler = () => {
+    let now = new Date();
+    let newNote = {
+      id : Date.now(),
+      title : "یادداشت های جدید",
+      snippet : "",
+      category : "جدید ها",
+      date : new Intl.DateTimeFormat("fa-IR-u-ca-rersian" , {
+        year : "numeric",
+        day : "2-digit",
+        month : "2-digit",
+      }).format(now),
+    }
+    let newNoteList = [newNote , ...notes];
+    setNotes(newNoteList);
+
+    setSelectNotes(newNote.id);
+  }
 
   return (
     <div className="w-[100vw] bg-gray-100 flex justify-center">
@@ -61,14 +84,15 @@ function App() {
         <Sidebar />
         <NoteBook
           notes={notes}
-          onSelect={setSelectNotes}
+          onSelect={handleSelect}
           selectNotes={selectNotes}
+          onCreate={createNoteHandeler}
         />
         <ViewNotes
-          note={selectNotes}
-          key={selectNotes?.id}
+          note={selectNote}
+          key={selectNotes}
           onSave={saveNote}
-          onDelete={noteDelete}
+          onDelete={deleteNoteHandeler}
         />
       </div>
     </div>

@@ -21,13 +21,20 @@ function ViewNotes({ note, onSave, onDelete }) {
     onDelete(note.id);
   };
 
+  if (!note) {
+    return (
+      <div className="flex w-[37%] h-screen px-4 flex-shrink-0 items-center justify-center">
+        <p className="text-gray-400 font-medium text-xl">متاسفانه هیچ یادداشتی وجود ندارد 😒 ، لطفا یک یادداشتی را انتخاب کنید یا یک یادداشت <br /> جدید ایجاد کنید 😃 </p>
+      </div>
+    );
+  }
+
   return (
     <div className="flex w-[37%] h-screen px-4 flex-shrink-0">
       <div className="card-view-notes w-[95%] h-[98vh] bg-sky-100 shadow-2xl shadow-sky-400 rounded-3xl p-6 flex flex-col">
         <div className="flex justify-between items-start">
           <div>
             <p className="text-gray-500 font-normal">مشاهده یادداشت</p>
-            <h3 className="text-black font-bold text-2xl">{note.title}</h3>
             <p className="text-gray-500 font-normal text-sm">
               دسته بندی : {note.category} <br /> تاریخ : {note.date}
             </p>
