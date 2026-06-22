@@ -39,6 +39,7 @@ function ViewNotes({ note, onSave, onDelete }) {
               دسته بندی : {note.category} <br /> تاریخ : {note.date}
             </p>
             <p className="w-[14vw] h-[10vh] bg-white border-9 border-green-900 rounded-2xl pt-1 pr-2 overflow-y-scroll text-2xl font-medium text-black break-all">{note.title}</p>
+            <p className="text-gray-500 font-normal text-sm"></p>
           </div>
           <div className="flex gap-2">
             <button
@@ -55,12 +56,10 @@ function ViewNotes({ note, onSave, onDelete }) {
             </button>
           </div>
         </div>
-
         <textarea
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           className="w-[100%] h-[9.9vh] bg-white rounded-2xl p-4 border-2 border-green-900 mt-6 text-green-900 font-medium shadow-2xl shadow-sky-500"
-          type="text"
         />
         <textarea
           value={snippet}

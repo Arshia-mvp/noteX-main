@@ -1,7 +1,6 @@
 import NoteCard from "../NoteCard/NoteCard";
 import NoteList from "../NoteList/NoteList";
-
-function NoteBook({ notes, onSelect, selectNotes , onCreate , searchBox , setSearchBox }) {
+function NoteBook({ notes, onSelect, selectNotes , onCreate }) {
   return (
     <div className="flex flex-col w-[41%] h-screen px-4 gap-8 flex-shrink-0">
       <div className="card-note-book w-full h-[16vh] bg-sky-100 shadow-lg shadow-sky-400 rounded-3xl p-6 flex justify-between items-center">

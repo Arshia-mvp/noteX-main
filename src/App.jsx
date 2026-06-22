@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import NoteBook from "./components/NoteBook/NoteBook";
 import Sidebar from "./components/Sidebar/Sidebar";
 import ViewNotes from "./components/ViewNotes/ViewNotes";
-import NoteCard from "./components/NoteCard/NoteCard";
-import NoteList from "./components/NoteList/NoteList";
 
 function App() {
   let [notes, setNotes] = useState(() => {
@@ -12,39 +10,38 @@ function App() {
       return JSON.parse(saved);
     }
     return [
-    {
-      id: 1,
-      title: "ایده پروژه",
-      snippet: "ساخت یک اپلیکیشن مدیریت یادداشت با React و Tailwind",
-      content: "متن کامل یادداشت...",
-      category: "ایده",
-      date: "1403/09/12",
-      isPinned: true,
-    },
-    {
-      id: 2,
-      title: "مطالب کلاس",
-      snippet: "آموزش State و Props در React",
-      content: "جزئیات یادداشت...",
-      category: "آموزش",
-      date: "1403/09/10",
-      isPinned: false,
-    },
-    {
-      id: 3,
-      title: "لیست کارها",
-      snippet: "آماده سازی تمرین برای دانشجو ها",
-      content: "جزئیات یادداشت...",
-      category: "کار",
-      date: "1403/09/9",
-      isPinned: false,
-    },
-  ]
-  })
+      {
+        id: 1,
+        title: "ایده پروژه",
+        snippet: "ساخت یک اپلیکیشن مدیریت یادداشت با React و Tailwind",
+        content: "متن کامل یادداشت...",
+        category: "ایده",
+        date: "1403/09/12",
+        isPinned: true,
+      },
+      {
+        id: 2,
+        title: "مطالب کلاس",
+        snippet: "آموزش State و Props در React",
+        content: "جزئیات یادداشت...",
+        category: "آموزش",
+        date: "1403/09/10",
+        isPinned: false,
+      },
+      {
+        id: 3,
+        title: "لیست کارها",
+        snippet: "آماده سازی تمرین برای دانشجو ها",
+        content: "جزئیات یادداشت...",
+        category: "کار",
+        date: "1403/09/9",
+        isPinned: false,
+      },
+    ];
+  });
 
   let [selectNotes, setSelectNotes] = useState(null);
-
-  let [searchBox , setSearchBox] = useState("");
+  let [searchBox, setSearchBox] = useState("");
 
   let searchBoxNotes = notes.filter((note) =>
     note.title.toLowerCase().includes(searchBox.toLowerCase())
@@ -56,9 +53,9 @@ function App() {
 
   let saveNote = (savedNote) => {
     let newNote = notes.map((singleNote) =>
-      singleNote.id === savedNote.id ? savedNote : singleNote,
+      singleNote.id === savedNote.id ? savedNote : singleNote
     );
-    setNotes(() => newNote);
+    setNotes(newNote);
   };
 
   let deleteNoteHandeler = (id) => {
@@ -79,18 +76,17 @@ function App() {
     let now = new Date();
     let newNote = {
       id: Date.now(),
-      title: "یادداشت های جدید",
+      title: "یادداشت جدید",
       snippet: "",
       category: "جدید ها",
-      date: new Intl.DateTimeFormat("fa-IR-u-ca-rersian", {
+      date: new Intl.DateTimeFormat("fa-IR", {
         year: "numeric",
-        day: "2-digit",
         month: "2-digit",
+        day: "2-digit",
+        calendar: "persian",
       }).format(now),
     };
-    let newNoteList = [newNote, ...notes];
-    setNotes(newNoteList);
-
+    setNotes([newNote, ...notes]);
     setSelectNotes(newNote.id);
   };
 
