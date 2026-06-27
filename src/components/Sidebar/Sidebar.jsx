@@ -1,15 +1,25 @@
-function Sidebar({theme , setTheme}) {
+function Sidebar({ theme, setTheme }) {
   return (
-    <div className={`w-[24%] h-screen flex-shrink-0 p-8 flex flex-col ${theme === "dark" ? "bg-gray-900" : "bg-blue-900 text-black"}`}>
+    <div
+      className={`w-[24%] h-screen flex-shrink-0 p-8 flex flex-col ${
+        theme === "dark"
+          ? "bg-gray-900"
+          : "bg-blue-900 text-black"
+      }`}
+    >
       <div className="flex items-center gap-4 mb-16">
         <div className="w-[64px] h-[64px] bg-purple-800 rounded-3xl flex items-center justify-center shrink-0">
           <p className="text-white text-2xl font-bold">N</p>
         </div>
+
         <div className="flex flex-col">
-          <h6 className="text-white font-bold text-2xl leading-none">NoteX</h6>
+          <h6 className="text-white font-bold text-2xl leading-none">
+            NoteX
+          </h6>
           <p className="text-white/70 text-sm mt-1">React Notes</p>
         </div>
       </div>
+
       <nav className="flex flex-col gap-4">
         {[
           { label: "همه یادداشت ها", icon: "📝" },

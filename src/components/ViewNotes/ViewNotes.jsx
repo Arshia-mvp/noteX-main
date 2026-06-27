@@ -1,25 +1,30 @@
 import { useEffect, useState } from "react";
 
-function ViewNotes({ note, onSave, onDelete, theme, setTheme }) {
-  let [title, setTitle] = useState(note?.title);
-  let [snippet, setSnippet] = useState(note?.snippet);
-  let [category, setCategory] = useState(note?.category);
+function ViewNotes({ note, onSave, onDelete, theme }) {
+  const [title, setTitle] = useState(note?.title || "");
+  const [snippet, setSnippet] = useState(note?.snippet || "");
+  const [category, setCategory] = useState(note?.category || "");
+
   useEffect(() => {
     if (note) {
       setTitle(note.title);
       setSnippet(note.snippet);
+      setCategory(note.category);
     }
   }, [note]);
+
   useEffect(() => {
-    let savedNote = {
+    if (!note) return;
+
+    onSave({
       ...note,
-      category,
       title,
       snippet,
-    };
-    onSave(savedNote);
+      category,
+    });
   }, [title, snippet, category]);
-  let deleteHandeler = () => {
+
+  const deleteHandeler = () => {
     onDelete(note.id);
   };
 
@@ -27,8 +32,8 @@ function ViewNotes({ note, onSave, onDelete, theme, setTheme }) {
     return (
       <div className="flex w-[37%] h-screen px-4 flex-shrink-0 items-center justify-center">
         <p className="text-gray-400 font-medium text-xl">
-          متاسفانه هیچ یادداشتی وجود ندارد 😒 ، لطفا یک یادداشتی را انتخاب کنید
-          یا یک یادداشت <br /> جدید ایجاد کنید 😃{" "}
+          متاسفانه هیچ یادداشتی وجود ندارد 😒، لطفاً یک یادداشت را انتخاب کنید
+          یا یک یادداشت جدید ایجاد کنید 😃
         </p>
       </div>
     );
@@ -36,7 +41,9 @@ function ViewNotes({ note, onSave, onDelete, theme, setTheme }) {
 
   return (
     <div
-      className={`flex w-[37%] h-screen px-4 flex-shrink-0 ${theme === "dark" ? "bg-gray-800" : "bg-gray-200"}`}
+      className={`flex w-[37%] h-screen px-4 flex-shrink-0 ${
+        theme === "dark" ? "bg-gray-800" : "bg-gray-200"
+      }`}
     >
       <div
         className={`card-view-notes w-[95%] h-[98vh] rounded-3xl p-6 flex flex-col ${
@@ -47,49 +54,52 @@ function ViewNotes({ note, onSave, onDelete, theme, setTheme }) {
       >
         <div className="flex justify-between items-start">
           <div>
-            <p className={`text-gray-500 font-normal ${theme === "dark" ? "text-slate-300" : "text-gray-500"}`}>مشاهده یادداشت</p>
-            <p className={`text-gray-500 font-normal text-sm ${theme === "dark" ? "text-slate-300" : "text-gray-500"}`}>
-              دسته بندی : {note.category} <br /> تاریخ : {note.date}
+            <p
+              className={`font-normal ${
+                theme === "dark" ? "text-slate-300" : "text-gray-500"
+              }`}
+            >
+              مشاهده یادداشت
             </p>
-            <p className={`w-[13vw] h-[10vh] bg-white border-9 border-gray-950 rounded-2xl pt-1 pr-2 overflow-y-scroll text-2xl font-medium text-black break-all ${theme === "dark" ? "shadow-2xl shadow-sky-400" : ""}`}>
-              {note.title}
+
+            <p
+              className={`font-normal text-sm ${
+                theme === "dark" ? "text-slate-300" : "text-gray-500"
+              }`}
+            >
+              دسته بندی : {category}
+              <br />
+              تاریخ : {note.date}
             </p>
-            <p className="text-gray-500 font-normal text-sm"></p>
+
+            <p
+              className={`w-[13vw] h-[10vh] bg-white rounded-2xl pt-1 pr-2 overflow-y-scroll text-2xl font-medium break-all ${
+                theme === "dark"
+                  ? "text-black shadow-2xl shadow-sky-400"
+                  : "text-black border-4 border-green-900"
+              }`}
+            >
+              {title}
+            </p>
           </div>
+
           <div className="flex gap-2">
-            <div className="flex justify-center items-center">
-              <select
-                onChange={(e) => setCategory(e.target.value)}
-                className="w-[8.5vw] h-[8vh] pr-5 text-green-400 font-bold border-6 border-indigo-500 shadow-xl shadow-indigo-700 rounded-xl bg-indigo-900 appearance-none cursor-pointer"
-                value={category}
-              >
-                <option className="font-bold bg-indigo-900 text-green-400">
-                  ایده
-                </option>
-                <option className="font-bold bg-black text-white">عمومی</option>
-                <option className="font-bold bg-gray-600 text-yellow-400">
-                  کار
-                </option>
-                <option className="font-bold bg-indigo-900 text-green-400">
-                  کامپیوتری
-                </option>
-                <option className="font-bold bg-green-800 text-sky-400">
-                  ورزشی
-                </option>
-                <option className="font-bold bg-red-700 text-fuchsia-400">
-                  درسی
-                </option>
-                <option className="font-bold bg-cyan-700 text-sky-950">
-                  جدید ها
-                </option>
-                <option className="font-bold bg-blue-800 text-orange-400">
-                  آموزش
-                </option>
-                <option className="font-bold bg-indigo-900 text-green-400">
-                  سایر
-                </option>
-              </select>
-            </div>
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="w-[8.5vw] h-[8vh] pr-5 text-green-400 font-bold border-4 border-indigo-500 shadow-xl shadow-indigo-700 rounded-xl bg-indigo-900 appearance-none cursor-pointer"
+            >
+              <option>ایده</option>
+              <option>عمومی</option>
+              <option>کار</option>
+              <option>کامپیوتری</option>
+              <option>ورزشی</option>
+              <option>درسی</option>
+              <option>جدید ها</option>
+              <option>آموزش</option>
+              <option>سایر</option>
+            </select>
+
             <button
               onClick={deleteHandeler}
               className="w-[8vw] h-[8vh] bg-red-200 rounded-2xl flex items-center justify-center"
@@ -102,14 +112,21 @@ function ViewNotes({ note, onSave, onDelete, theme, setTheme }) {
         <textarea
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className={`w-[100%] h-[9.9vh] rounded-2xl p-4 mt-6 text-green-900 shadow-2xl shadow-sky-500 ${theme === "dark" ? "bg-gray-800 text-white font-medium border-2 border-gray-500" : "text-green-900 border-2 border-green-900 font-medium"}`}
+          className={`w-full h-[10vh] rounded-2xl p-4 mt-6 ${
+            theme === "dark"
+              ? "bg-gray-800 text-white border-2 border-gray-500"
+              : "bg-white text-green-900 border-2 border-green-900"
+          }`}
         />
 
         <textarea
           value={snippet}
           onChange={(e) => setSnippet(e.target.value)}
-          className={`flex-grow rounded-2xl mt-4 p-4 shadow-2xl shadow-sky-500 ${theme === "dark" ? "bg-gray-800 text-white font-medium border-2 border-gray-500" : "text-green-900 border-2 border-green-900 font-medium"}`}
-          type="text"
+          className={`flex-grow rounded-2xl mt-4 p-4 ${
+            theme === "dark"
+              ? "bg-gray-800 text-white border-2 border-gray-500"
+              : "bg-white text-green-900 border-2 border-green-900"
+          }`}
         />
       </div>
     </div>

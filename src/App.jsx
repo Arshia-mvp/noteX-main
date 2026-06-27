@@ -4,11 +4,13 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import ViewNotes from "./components/ViewNotes/ViewNotes";
 
 function App() {
-  let [notes, setNotes] = useState(() => {
-    let saved = localStorage.getItem("notes");
+  const [notes, setNotes] = useState(() => {
+    const saved = localStorage.getItem("notes");
+
     if (saved) {
       return JSON.parse(saved);
     }
+
     return [
       {
         id: 1,
@@ -34,48 +36,52 @@ function App() {
         snippet: "آماده سازی تمرین برای دانشجو ها",
         content: "جزئیات یادداشت...",
         category: "کار",
-        date: "1403/09/9",
+        date: "1403/09/09",
         isPinned: false,
       },
     ];
   });
 
-  let [selectNotes, setSelectNotes] = useState(null);
-  let [searchBox, setSearchBox] = useState("");
-  let [theme, setTheme] = useState("light");
+  const [selectNotes, setSelectNotes] = useState(null);
+  const [searchBox, setSearchBox] = useState("");
+  const [theme, setTheme] = useState("light");
 
-  let searchBoxNotes = notes.filter((note) =>
-    note.title.toLowerCase().includes(searchBox.toLowerCase()),
+  const searchBoxNotes = notes.filter((note) =>
+    note.title.toLowerCase().includes(searchBox.toLowerCase())
   );
 
   useEffect(() => {
     localStorage.setItem("notes", JSON.stringify(notes));
   }, [notes]);
 
-  let saveNote = (savedNote) => {
-    let newNote = notes.map((singleNote) =>
-      singleNote.id === savedNote.id ? savedNote : singleNote,
+  const saveNote = (savedNote) => {
+    const newNotes = notes.map((singleNote) =>
+      singleNote.id === savedNote.id ? savedNote : singleNote
     );
-    setNotes(newNote);
+
+    setNotes(newNotes);
   };
 
-  let deleteNoteHandeler = (id) => {
-    let newNotes = notes.filter((note) => note.id !== id);
+  const deleteNoteHandeler = (id) => {
+    const newNotes = notes.filter((note) => note.id !== id);
+
     setNotes(newNotes);
+
     if (selectNotes === id) {
       setSelectNotes(newNotes[0]?.id || null);
     }
   };
 
-  let selectNote = notes.find((note) => note.id === selectNotes);
+  const selectNote = notes.find((note) => note.id === selectNotes);
 
-  let handleSelect = (note) => {
+  const handleSelect = (note) => {
     setSelectNotes(note.id);
   };
 
-  let createNoteHandeler = () => {
-    let now = new Date();
-    let newNote = {
+  const createNoteHandeler = () => {
+    const now = new Date();
+
+    const newNote = {
       id: Date.now(),
       title: "یادداشت جدید",
       snippet: "",
@@ -87,33 +93,37 @@ function App() {
         calendar: "persian",
       }).format(now),
     };
+
     setNotes([newNote, ...notes]);
     setSelectNotes(newNote.id);
   };
 
   return (
     <div
-      className={`w-[100vw] flex justify-center ${theme === "dark" ? "bg-gray-900" : "bg-gray-100"}`}
+      className={`w-screen flex justify-center ${
+        theme === "dark" ? "bg-gray-900" : "bg-gray-100"
+      }`}
     >
       <div className="flex w-full h-screen overflow-hidden">
         <Sidebar theme={theme} setTheme={setTheme} />
+
         <NoteBook
           notes={searchBoxNotes}
           onSelect={handleSelect}
           selectNotes={selectNotes}
           onCreate={createNoteHandeler}
-          setSearchBox={setSearchBox}
           searchBox={searchBox}
+          setSearchBox={setSearchBox}
           theme={theme}
           setTheme={setTheme}
         />
+
         <ViewNotes
-          note={selectNote}
           key={selectNotes}
+          note={selectNote}
           onSave={saveNote}
           onDelete={deleteNoteHandeler}
           theme={theme}
-          setTheme={setTheme}
         />
       </div>
     </div>

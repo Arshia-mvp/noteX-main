@@ -1,6 +1,12 @@
 import NoteCard from "../NoteCard/NoteCard";
 
-function NoteList({ notes, onSelect, selectNotes, onCreate, theme, setTheme }) {
+function NoteList({
+  notes,
+  onSelect,
+  selectNotes,
+  onCreate,
+  theme,
+}) {
   return (
     <div
       className={`card-notes w-full h-full rounded-3xl shadow-2xl p-6 flex flex-col overflow-hidden ${
@@ -10,7 +16,14 @@ function NoteList({ notes, onSelect, selectNotes, onCreate, theme, setTheme }) {
       }`}
     >
       <div className="flex justify-between items-center mb-6 flex-shrink-0">
-        <p className={`text-black font-medium text-xl ${theme === "dark" ? "text-white" : "text-black"}`}>یادداشت ها</p>
+        <p
+          className={`font-medium text-xl ${
+            theme === "dark" ? "text-white" : "text-black"
+          }`}
+        >
+          یادداشت ها
+        </p>
+
         <button
           onClick={onCreate}
           className="w-[9vw] h-[7vh] rounded-2xl bg-sky-800 flex items-center justify-center"
@@ -22,7 +35,7 @@ function NoteList({ notes, onSelect, selectNotes, onCreate, theme, setTheme }) {
       <div className="flex-grow overflow-y-auto">
         {notes.length === 0 ? (
           <p className="text-gray-500 text-2xl font-mono font-bold flex items-center justify-center mt-40">
-            متاسفانه یادداشتی وجود ندارد😒
+            متاسفانه یادداشتی وجود ندارد 😒
           </p>
         ) : (
           notes.map((note) => (

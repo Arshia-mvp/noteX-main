@@ -1,5 +1,6 @@
 import NoteCard from "../NoteCard/NoteCard";
 import NoteList from "../NoteList/NoteList";
+
 function NoteBook({
   notes,
   onSelect,
@@ -12,7 +13,9 @@ function NoteBook({
 }) {
   return (
     <div
-      className={`flex flex-col w-[41%] h-screen px-4 gap-8 flex-shrink-0 ${theme === "dark" ? "bg-gray-800" : "bg-gray-200"}`}
+      className={`flex flex-col w-[41%] h-screen px-4 gap-8 flex-shrink-0 ${
+        theme === "dark" ? "bg-gray-800" : "bg-gray-200"
+      }`}
     >
       <div
         className={`card-note-book w-full h-[16vh] rounded-3xl p-6 flex justify-between items-center ${
@@ -42,18 +45,38 @@ function NoteBook({
             )}
           </div>
         </button>
+
         <div>
-          <p className={`text-black font-bold text-2xl ${theme === "dark" ? "text-white" : "text-black"}`}>دفترچه یادداشت</p>
-          <p className={`text-gray-500 font-normal ${theme === "dark" ? "text-white" : "text-black"}`}>مدیریت یادداشت ها</p>
+          <p
+            className={`font-bold text-2xl ${
+              theme === "dark" ? "text-white" : "text-black"
+            }`}
+          >
+            دفترچه یادداشت
+          </p>
+
+          <p
+            className={`font-normal ${
+              theme === "dark" ? "text-white" : "text-gray-500"
+            }`}
+          >
+            مدیریت یادداشت ها
+          </p>
         </div>
+
         <input
-          className={`w-[38%] h-[8vh] rounded-2xl p-4 shadow-2xl shadow-sky-500 ${theme === "dark" ? "bg-gray-800 text-white font-medium border-2 border-gray-500" : "text-green-900 border-2 border-green-900 font-medium"}`}
+          className={`w-[38%] h-[8vh] rounded-2xl p-4 shadow-2xl shadow-sky-500 ${
+            theme === "dark"
+              ? "bg-gray-800 text-white font-medium border-2 border-gray-500"
+              : "bg-white text-green-900 font-medium border-2 border-green-900"
+          }`}
           type="text"
           placeholder="جستجو..."
-          onChange={(e) => setSearchBox(e.target.value)}
           value={searchBox}
+          onChange={(e) => setSearchBox(e.target.value)}
         />
       </div>
+
       <NoteList
         notes={notes}
         onSelect={onSelect}
