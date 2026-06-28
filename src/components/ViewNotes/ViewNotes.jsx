@@ -114,8 +114,8 @@ function ViewNotes({ note, onSave, onDelete, theme }) {
           onChange={(e) => setTitle(e.target.value)}
           className={`w-full h-[10vh] rounded-2xl p-4 mt-6 ${
             theme === "dark"
-              ? "bg-gray-800 text-white border-2 border-gray-500"
-              : "bg-white text-green-900 border-2 border-green-900"
+              ? "bg-gray-800 text-white border-2 border-gray-500 shadow-2xl shadow-sky-500"
+              : "bg-white text-green-900 border-2 border-green-900 shadow-2xl shadow-sky-500"
           }`}
         />
 
@@ -124,8 +124,8 @@ function ViewNotes({ note, onSave, onDelete, theme }) {
           onChange={(e) => setSnippet(e.target.value)}
           className={`flex-grow rounded-2xl mt-4 p-4 ${
             theme === "dark"
-              ? "bg-gray-800 text-white border-2 border-gray-500"
-              : "bg-white text-green-900 border-2 border-green-900"
+              ? "bg-gray-800 text-white border-2 border-gray-500 shadow-2xl shadow-sky-500"
+              : "bg-white text-green-900 border-2 border-green-900 shadow-2xl shadow-sky-500"
           }`}
         />
       </div>
